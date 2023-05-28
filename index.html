@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Name Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="png" href="favicon-32.png">
+  <style>
+     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Hind+Guntur:wght@300;400;500&family=Iceberg&family=Instrument+Sans&family=Monomaniac+One&family=Nunito&family=Outfit:wght@400;500&family=Pacifico&family=Poppins:ital@1&family=Reem+Kufi+Fun&family=Ubuntu&display=swap');
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      display: block;
+    }
+  
+    h1 {
+      margin-bottom: 20px;
+    }
+  
+    form {
+      margin-bottom: 20px;
+    }
+  
+    input {
+      margin-bottom: 20px;
+      width: 300px;
+      padding: 5px;
+     
+    }
+  
+    button {
+        margin: 0 10px;
+      padding: 10px 10px;
+      background-color: #000;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  
+    #generatedNames {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .nameBox {
+      width: 130px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .nameBox:hover {
+      background-color: #000;
+      color: white;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="container">
+    <h1>Name Generator</h1>
+    <form id="nameForm">
+    
+      <input type="text" id="fatherName" required placeholder="Enter Father's Name">
+
+      <input type="text" id="motherName" required placeholder="Enter Mother's Name">
+      <label for="gender">Gender:</label>
+      <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button type="submit">Generate</button>
+    </form>
+    <div id="generatedNames"></div>
+  </div>
+  <script>
+    document.getElementById("nameForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+  
+      var fatherName = document.getElementById("fatherName").value;
+      var motherName = document.getElementById("motherName").value;
+      var gender = document.getElementById("gender").value;
+  
+      var generatedNames = generateNames(fatherName, motherName, gender);
+  
+      var generatedNamesElement = document.getElementById("generatedNames");
+      generatedNamesElement.innerHTML = "";
+  
+      if (generatedNames.length > 0) {
+        var heading = document.createElement("h3");
+        heading.textContent = "Generated Names:";
+        generatedNamesElement.appendChild(heading);
+  
+        generatedNames.forEach(function(name) {
+          var nameBox = document.createElement("div");
+          nameBox.className = "nameBox";
+          nameBox.textContent = name;
+          generatedNamesElement.appendChild(nameBox);
+        });
+      } else {
+        generatedNamesElement.textContent = "No names generated.";
+      }
+    });
+  
+    function generateNames(fatherName, motherName, gender) {
+      var generatedNames = [];
+      
+     
+      if (gender === "female") {
+       
+        for (var i = 0; i < fatherName.length; i++) {
+          for (var j = 0; j < motherName.length; j++) {
+            var name = fatherName.substring(0, i + 1) + motherName.substring(j);
+            generatedNames.push(name);
+          }
+        }
+      } else if (gender === "male") {
+      
+        for (var i = 0; i < motherName.length; i++) {
+          for (var j = 0; j < fatherName.length; j++) {
+            var name = motherName.substring(0, i + 1) + fatherName.substring(j);
+            generatedNames.push(name);
+          }
+        }
+      }
+  
+      return generatedNames;
+    }
+  </script>
+  
+</body
